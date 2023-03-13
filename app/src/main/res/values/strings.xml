@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">JAV1001-ScoreKeeper</string>
+    <string name="basketball_score_keeper">Basketball Match Score Keeper</string>
+    <string name="teamA">Team A</string>
+    <string name="teamB">Team B</string>
+    <string name="teams_default_score">0</string>
+    <string name="select_score">Select Score</string>
+    <string name="score_one">1</string>
+    <string name="score_two">2</string>
+    <string name="score_three">3</string>
+</resources>
