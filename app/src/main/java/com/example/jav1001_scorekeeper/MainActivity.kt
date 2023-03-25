@@ -9,20 +9,26 @@
 package com.example.jav1001_scorekeeper
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
+import android.app.ActionBar
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.RadioButton
+import android.widget.Switch
 import android.widget.TextView
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+
 
 class MainActivity : AppCompatActivity() {
     // We have created a score variable to keep the selected score on the radiobutton.
     private var score:Int=0
-    @SuppressLint("SetTextI18n")
+
+
+
+    @SuppressLint("SetTextI18n", "SuspiciousIndentation", "UseSwitchCompatOrMaterialCode")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -33,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         val teamBDecrease:ImageButton = findViewById(R.id.teamBDecrease)
         val teamAScoreTextView:TextView = findViewById(R.id.teamAScore)
         val teamBScoreTextView:TextView = findViewById(R.id.teamBScore)
+        val changeMode:Switch = findViewById(R.id.change_mode)
 
         //The method that works when pressing the increase button in Team A
         teamAIncrease.setOnClickListener {
@@ -60,6 +67,21 @@ class MainActivity : AppCompatActivity() {
             if (teamBScoreTextView.text.toString().toInt()!=0 && teamBScoreTextView.text.toString().toInt()>=score)
             // We decreased the value we selected in the radio button and the value from teamB's textview, and assigned the textview of teamB as a result.
                 teamBScoreTextView.text=(teamBScoreTextView.text.toString().toInt()-score).toString()
+        }
+
+
+        // Switch button changed function
+        changeMode.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked){
+                // Changed ActionBar Color
+                supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#8C65E8")))
+                // if switch button isChecked we changed dark mode
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }else{
+                // if switch button is not checked we changed light mode
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+
         }
 
     }
