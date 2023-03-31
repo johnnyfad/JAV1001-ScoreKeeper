@@ -4,70 +4,81 @@
     DESCRIPTION : The application keeps the scores of the two teams in the match. Scores are updated with the numbers 1,2,3.
     When the teams scored, how many points were scored, that number is added to the total score.
     At the time the number is dropped, the specified score is reduced.
+
+    LAB6
+    Dark mode feature was added to the application as an extra. Here, we determined the dark mode colors using the colors
+    and theme layouts and activated and deactivated the dark mode with the switch.
+
+    LAB7
+    Added menu feature and new activity to the application. We created a new layout with the menu feature and connected this layout to MainActivity. We made the clicks of the buttons in the menu.
+
+    When About clicked on the menu, we displayed the developer information with a toast message.
+
+    When Settings are clicked on the menu, we made a transition to a new activity. We sent the scores of the teams during the transition process.
+    In the new Activity, we saved these scores to Shared Preferences for the first time. We took the recorded data and printed it on the screen.
  */
 
 package com.example.jav1001_scorekeeper
 
 import android.annotation.SuppressLint
-import android.app.ActionBar
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
-import android.widget.ImageButton
-import android.widget.RadioButton
-import android.widget.Switch
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import com.example.jav1001_scorekeeper.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
     // We have created a score variable to keep the selected score on the radiobutton.
     private var score:Int=0
 
-
-
+    private lateinit var binding: ActivityMainBinding
     @SuppressLint("SetTextI18n", "SuspiciousIndentation", "UseSwitchCompatOrMaterialCode")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         // We called the views that we used in the UI and assigned each of them to variables.
-        val teamAIncrease:ImageButton = findViewById(R.id.teamAIncrease)
-        val teamBIncrease:ImageButton = findViewById(R.id.teamBIncrease)
-        val teamADecrease:ImageButton = findViewById(R.id.teamADecrease)
-        val teamBDecrease:ImageButton = findViewById(R.id.teamBDecrease)
-        val teamAScoreTextView:TextView = findViewById(R.id.teamAScore)
-        val teamBScoreTextView:TextView = findViewById(R.id.teamBScore)
         val changeMode:Switch = findViewById(R.id.change_mode)
 
         //The method that works when pressing the increase button in Team A
-        teamAIncrease.setOnClickListener {
+        binding.teamAIncrease.setOnClickListener {
             // We added the value we selected in the radio button and the value from teamA's textview, and assigned the textview of teamA as a result.
-            teamAScoreTextView.text=(teamAScoreTextView.text.toString().toInt()+score).toString()
+            binding.teamAScore.text=(binding.teamAScore.text.toString().toInt()+score).toString()
 
         }
         //The method that works when pressing the increase button in Team B
-        teamBIncrease.setOnClickListener {
+        binding.teamBIncrease.setOnClickListener {
             // We added the value we selected in the radio button and the value from teamB's textview, and assigned the textview of teamB as a result.
-                teamBScoreTextView.text=(teamBScoreTextView.text.toString().toInt()+score).toString()
+                binding.teamBScore.text=(binding.teamBScore.text.toString().toInt()+score).toString()
         }
         //The method that works when pressing the decrease button in Team A
-        teamADecrease.setOnClickListener {
+        binding.teamADecrease.setOnClickListener {
             // Before reducing temA's score, we have checked whether it is 0 or not and
             // if the teamA textview value is greater or equal to the selected score, we have done the decrease.
-            if (teamAScoreTextView.text.toString().toInt()!=0 && teamAScoreTextView.text.toString().toInt()>=score)
+            if (binding.teamAScore.text.toString().toInt()!=0 && binding.teamAScore.text.toString().toInt()>=score)
             // We decreased the value we selected in the radio button and the value from teamA's textview, and assigned the textview of teamB as a result.
-            teamAScoreTextView.text=(teamAScoreTextView.text.toString().toInt()-score).toString()
+                binding.teamAScore.text=(binding.teamAScore.text.toString().toInt()-score).toString()
         }
         //The method that works when pressing the decrease button in Team B
-        teamBDecrease.setOnClickListener {
+        binding.teamBDecrease.setOnClickListener {
             // Before reducing temB's score, we have checked whether it is 0 or not and
             // if the teamB textview value is greater or equal to the selected score, we have done the decrease.
-            if (teamBScoreTextView.text.toString().toInt()!=0 && teamBScoreTextView.text.toString().toInt()>=score)
+            if (binding.teamBScore.text.toString().toInt()!=0 && binding.teamBScore.text.toString().toInt()>=score)
             // We decreased the value we selected in the radio button and the value from teamB's textview, and assigned the textview of teamB as a result.
-                teamBScoreTextView.text=(teamBScoreTextView.text.toString().toInt()-score).toString()
+                binding.teamBScore.text=(binding.teamBScore.text.toString().toInt()-score).toString()
         }
+
+
+
 
 
         // Switch button changed function
@@ -84,6 +95,39 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // We connect the settings menu.xml file to MainActivity
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.settings_menu, menu)
+        return true
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            // We click on the menus whose names we have given in the settings_menu.xml file.
+            R.id.settings -> {
+                // It works when the settings menu is clicked.
+                // We are routing the new activity we have created.
+                // While routing is being done, we are sending data at the same time.
+                val intent = Intent(this, SettingsActivity::class.java)
+                intent.putExtra("teamAScore", binding.teamAScore.text)
+                intent.putExtra("teamBScore", binding.teamBScore.text)
+                startActivity(intent)
+                true
+            }
+            R.id.about -> {
+                // It works when the about menu is clicked.
+                val text = "Ertugrul,JAV1001"
+                val duration = Toast.LENGTH_SHORT
+                // We print a toast message on the screen
+                val toast = Toast.makeText(applicationContext, text, duration)
+                toast.show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
     fun onRadioButtonClicked(view: View) {
         if (view is RadioButton) {
