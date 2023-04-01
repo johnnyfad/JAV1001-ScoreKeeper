@@ -6,12 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    style="@style/SCREEN"
     tools:context=".MainActivity">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/basketball_score_keeper"
-        android:textColor="@android:color/black"
+        style="@style/TEXT"
         android:textSize="25sp"
         android:layout_marginTop="20dp"/>
 
@@ -30,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/teamA"
-                android:textColor="@android:color/holo_blue_dark"
+                android:textColor="@color/teamAColor"
                 android:textSize="32sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/teams_default_score"
-                android:textColor="@android:color/black"
+                style="@style/TEXT"
                 android:textSize="32sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -56,16 +57,16 @@
                     android:id="@+id/teamAIncrease"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:tint="#ffff"
+                    app:tint="@color/white"
                     android:layout_marginEnd="20dp"
-                    android:background="@android:color/holo_blue_dark"
+                    android:background="@color/teamAColor"
                     android:src="@drawable/ic_action_name"/>
                 <ImageButton
                     android:id="@+id/teamADecrease"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:tint="#ffff"
-                    android:background="@android:color/holo_blue_dark"
+                    app:tint="@color/white"
+                    android:background="@color/teamAColor"
                     android:src="@drawable/ic_remove"/>
             </LinearLayout>
 
@@ -81,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/teamB"
-                android:textColor="@android:color/holo_red_dark"
+                android:textColor="@color/teamBColor"
                 android:textSize="32sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -92,7 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/teams_default_score"
-                android:textColor="@android:color/black"
+                style="@style/TEXT"
                 android:textSize="32sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -107,16 +108,16 @@
                     android:id="@+id/teamBIncrease"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:tint="#ffff"
+                    app:tint="@color/white"
                     android:layout_marginEnd="20dp"
-                    android:background="@android:color/holo_red_dark"
+                    android:background="@color/teamBColor"
                     android:src="@drawable/ic_action_name"/>
                 <ImageButton
                     android:id="@+id/teamBDecrease"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:tint="#ffff"
-                    android:background="@android:color/holo_red_dark"
+                    app:tint="@color/white"
+                    android:background="@color/teamBColor"
                     android:src="@drawable/ic_remove"/>
             </LinearLayout>
         </LinearLayout>
@@ -127,7 +128,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/select_score"
-        android:textColor="@android:color/black"
+        style="@style/TEXT"
         android:textSize="25sp"
         android:layout_marginTop="20dp"/>
     <RadioGroup
@@ -140,19 +141,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/score_one"
+            style="@style/TEXT"
             android:onClick="onRadioButtonClicked"/>
         <RadioButton android:id="@+id/two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/score_two"
+            style="@style/TEXT"
             android:onClick="onRadioButtonClicked"/>
         <RadioButton android:id="@+id/three"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/score_three"
+            style="@style/TEXT"
             android:onClick="onRadioButtonClicked"/>
     </RadioGroup>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+        <Switch
+            android:id="@+id/change_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/night_mode"
+            style="@style/TEXT"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+
+    </LinearLayout>
 
 
 
